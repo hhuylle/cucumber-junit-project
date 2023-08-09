@@ -1,0 +1,97 @@
+
+What is a Framework? (Framework==f)
+A set of rules which we can follow in a systematic way to achieve desired result.
+Test automation frameworks deal with best practices to achieve goals of our automation project.
+Framework is a code structure that helps to make code maintenance easy.
+
+The benefits of using Framework: REUSABILITY, MAINTAINABILITY, MANAGEABILITY, ACCESSIBILITY, AVAILABILITY, RELLIABILITY, FLEXIBILITY, MESURABILITY.
+
+Some popular Frameworks:
+    Data Driven F: Driven by data. Executing same tests against different test data
+    Keyword Driven F: a scripting technique that uses data files to contain the keyword related to application being tested.
+    Hybrid F: a conbination of both Data Driven F and Keyword Driven F
+
+Different types of Development approaches:(it means how a team is developing the application itself)
+
+Test Driven Development ( TDD ) ( BUG FREE DEVELOPMENT )
+      #1- Write unit tests before writing any source code.
+      #2- Run the tests and tests will fail.
+      #3- Write the code to pass tests.
+      #4- Run the tests AGAIN, and the tests will PASS.
+      #5- REFACTOR AND REPEAT.
+
+- In TDD, developers are writing @Tests in the preferred programming languagues.
+- That's why, the non-technical people won't understand the progress in the unit tests and development.
+- That is the reason we will be using the BDD approach.
+
+Behavior Driven Development (BDD)
+BDD is an extension of TDD
+Flow of implement is very similar
+
+      #1- Write SCENARIOS before writing any source code.
+      #2- Run the SCENARIOS and SCENARIOS will fail.
+      #3- Write minimum amount of code to make the SCENARIOS pass.
+      #4- Run the SCENARIOS AGAIN, and the SCENARIOS will PASS.
+      #5- REFACTOR AND REPEAT.
+
+What is CUCUMBER? what are the BENEFITS?
+Cucumber is a tool that allows us to write tests as scenarios in gherkin language
+Cucumber tool is a simple overlay on top of the actual test code
+
+BDD has 2 different layers to be implemented:
+
+#1-Business layer: FEATURE FILES
+- Feature files will be storing the different features, scenarios, and re-usable steps in Gherkin language.
+- Business side is mostly for collaborating with non-technical people.
+    Feature 	: Can define a whole agile story. From 1 agile story we will generate multiple scenarios.
+    Scenario 	: Each scenario is created from the agile story we have.
+    Step 		: Each step defines the proper execution flow of the scenario we are working on.
+	- Each step is re-usable part of our project.
+	- We can use the same step in different scenarios in the same feature file or others.
+
+#2-Implementation layer: step definitions
+- Technical people implement the "STEP DEFINITIONS" to convert steps (from the feature files) into concrete working actions (using JAVA+SELENIUM in our case)
+
+- WHAT IS THE RUNNING ORDER OF A CUCUMBER BDD PROJECT?
+	- Scenarios are executed in the order the we have in the feature files.
+	- The steps orders that we provide in the feature file will call the java methods that are assigned to them in the step_definitions package.
+
+
+- Why are we not using the TESTNG and using JUNIT?
+	#1- Because the community is using JUNIT more than TestNG.
+		- more questions
+		- more answer
+		- more demand
+		- more opportunities
+
+	#2- We don't need all the annotations that comes from TestNG anyways.
+
+Is cucumber a testing tool?
+No, the Cucumber is not a testing tool.
+It is a BDD implementation tool.
+It does not come with any testing or programming logic.
+It does not have assertions, that's why we are using cucumber with junit: "cucumber-junit"
+For programming approach we are using cucumber with java : "cucumber-java"
+
+TestNG 	: Assert.assertTrue(boolean, "option failure message");
+JUnit 	: Assert.assertTrue("option failure message", boolean);
+
+How do we comment in a feature files?
+Is cucumber a testing tool?
+No, the Cucumber is not a testing tool.
+It is a BDD implementation tool.
+It does not come with any testing or programming logic.
+It does not have assertions, that's why we are using cucumber with junit: "cucumber-junit"
+For programming approach we are using cucumber with java : "cucumber-java"
+
+TestNG 	: Assert.assertTrue(boolean, "option failure message");
+JUnit 	: Assert.assertTrue("option failure message", boolean);
+
+HOW DO WE COMMENT IN A FEATURE FILE?
+- We can use the # sign to comment out lines in feature file.
+
+Can we have same step definition more than once?
+ No we cannot.
+ We can only have 1 definition to each step
+ If we had more than one step definition to same step, that would create confusion for the code and the developer.
+ For this reason, if we have same step definition twice, it wont even compile.

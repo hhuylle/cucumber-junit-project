@@ -1,0 +1,333 @@
+Rest of cucumber expectation:
+
+#1- dryRun
+- Basically dryRun turns on and off the running of the step definitions.
+- When I run my Runner class, if I want to execute my step_definitions, I should be turning dryRun off.
+
+- dryRun = true
+      --> it means dryRun is turned on. It will not execute the code, but only check if missing snippet. It will automatically generate snippet in the console for us to use
+.
+Ex: If I don't want to watch all of the scenarios to be executed (open browser, go to google, search for something etc.), and I just want to get my snippet, I will turn the dryRun ON by giving boolean value "true"
+
+- dryRun = false
+      --> it means dryRun is turned OFF.
+      --> It will execute everything, including Java+Selenium code, and also if any snippets missing it will generate them as well.
+
+Multiple ways of generating the snippets:
+
+ We can generate snippets by running the Runner class.
+	- It will generate snippets with the method names with underscores "method_name()"
+	- Also it will generate basic description line "turn above line into concrete actions"
+	- Also will have the throw PendingException line as well
+
+ We can just hover over the steps that are missing step definitions, and select "create stepdefitions"
+
+What is the order of using the reference keywords of Cucumber Gherkin?
+We have multiple keywords for Cucumber feature files.
+
+	- Given, When, Then, And, But
+
+-> Regardless of the order we write these keys in the feature files, they will just execute the java method behind the step_definitions.
+-> Which keyword we use does not change the functionality AT ALL.
+
+ Given:  is mostly used for pre-conditions.
+
+ex:
+	Given user is already logged in and on the login page
+	Given user is already on the search page
+	Given user is already on the login page
+	Given user is already on the home page
+
+	Given I am on the login page
+
+	Given student is on the login page
+
+	Given officer is on the home page
+
+	Given driver is on the login page
+
+ When:  is used for some action happens
+Ex:
+	When user clicks to something
+	When user searches for something
+	When user enters librarian user name
+
+ And:  is used for repeating steps
+ But: This is similar to "And", but it is used for mostly negative or comparing scenarios.
+ Then:  is used for the verification is happening
+Ex:
+	Then user should see title is something
+	Then user should see the dashboard
+	Then user should see the search results
+
+#2- TAGS:
+ Tags are used to create different scenario suites, and execute them in the way we want to execute.
+ We can use tags to include or exclude some scenarios or feature files.
+
+ If we put a @Tag on top of the Feature file itself, that whole page is marked as that @Tag.
+ If we put a @Tag on top of the Scenario, only that specific scenario is marked as that @Tag.
+ You can have as many tags as you want for a feature file or a scenario, there is no limit.
+ The tags are CASE SENSTIVE.
+
+
+ How do we use conditions with tags?
+
+ or:
+	- "or" keyword can be used as a condition in "tags"
+	- We can use "or" if we want to be less specific
+	- "or" is similar to "||" in Java.
+	- If either one of the sides of the tags are contained the scenario will be executed.
+
+ and:
+	- "and" keyword is used to be more specific
+	- Both sides of the tags must be contained for that scenario to be executed.
+	- "and" is similar to "&&" in Java.
+
+
+ and not:  is used for excluding scenarios
+
+- WHAT IS THE TRIGGERING POINT OF YOUR FRAMEWORK?
+- WHERE DO YOU RUN YOUR FRAMEWORK FROM?
+	- The runner class.
+	- You can name it anything you want;
+		- CukesRunner
+		- TestRunner
+		- Runner
+		- RoadRuner
+
+#1- Runner class should know which type of report will be used
+#2- Runner class should know where do we store the feature files
+#3- Runner class should know where do we store the step definitions files
+#4- Runner class should know which tags we want to run
+#5- Runner class should know if we want to execute step_definitions or not (dryRun=true or false)
+
+- How do we generate different types of reports?
+	- We pass the "plugin" keyword in the @CucumberOptions
+	- Inside the value of the "plugin" we determine the type of the report and where we want to store that report
+	- We can also use "publish=true" option coming from Cucumber to generate a report and create a public link for that report for the team.
+
+#3-html REPORTS:
+   - we can generate reports using
+      "html:target/cucumber-reports.html",
+            html: --> determines the type of the report
+            target/ --> we are deciding we do we store this report
+            cucumber-reports.html --> we are giving the report file a name
+
+
+#4- BACKGROUND:
+- Background is very similar to @BeforeMethod in TestNG.
+- @BeforeMethod runs before each test in that specific class.
+- Background steps will be executed once before each scenario in
+that feature file.
+- It will be executed ONCE.
+- It will only work for the scenarios in the same feature
+file.
+- We need to make sure from where the Background left off, all
+of the scenarios should be able to pick up and continue with the test
+execution.
+
+
+#5- HOOKS:
+       - It will allow us to create PRE and POST conditions for all of the scenarios in our project
+       - Hook class is separated from the feature file
+       - Because we will be using programming logic, we will store the
+Hooks class under 'step_definitions' package
+       - What are the differences between the "Background" and "Hooks"?
+              - Background is for the "BUSINESS" side of the BDD. (for the nontechnical
+people)
+              - HOOKS is for the "IMPLEMENTATION" side of the BDD (for the technical people)
+- By default:
+        - Background only applies to all of the scenario in the same
+feature file.
+        - Hooks will apply to all of the scenarios in the PROJECT.
+        - BUT! We can use @Tags to limit which scenarios these @Before @After will apply.
+        - If we have more than one @Before @After, we can run them in the order we want them to be executed using "order=1". The smaller the number, the earlier it will be executed.
+
+- @Before : This will be executed before all of the scenarios
+- @After : This will be executed AFTER all of the scenarios
+- @BeforeStep : This will be executed before all of the STEPS in ALL
+OF THE SCENARIOS
+- @AfterStep : This will be executed AFTER all of the STEPS in ALL
+OF THE SCENARIOS
+
+- These method can be used for different types of setups and teardowns
+      - opening browser
+      - maximizing browser
+      - connecting database
+      - close connection to database
+      - close the browser
+Ex:
+@Before (order = 1)
+public void setupMethod(){
+System.out.println("---> @Before: RUNNING BEFORE EACH
+SCENARIO");
+}
+@After
+public void teardownMethod(){
+System.out.println("---> @After: RUNNING AFTER EACH
+SCENARIO");
+}
+@BeforeStep
+public void setupStep(){
+System.out.println("-----> @BeforeSTEP : Running before each
+step!");
+}
+@AfterStep
+public void teardownStep(){
+System.out.println("-----> @AfterSTEP : Running after each
+step!");
+}
+
+
+#6- PARAMETERIZATION : CUCUMBER EXPRESSIONS
+- Cucumber Expressions (Parameterization) is being able to pass and change
+ test data from the feature files.
+- Using Cucumber Expressions, we can pass String, int, float, {word},
+   and even create our own object types to be able to pass from the
+feature file as test data.
+- We are allowed to pass java types, and non-java types.
+       - Java types: String, int, float, double, etc...
+       - Non-java types: {word}
+- Also we can create our own Object types to be able to pass from feature
+  files
+- We can pass more than 1 argument in 1 step.
+
+
+#7- DATA TABLES:
+  CUCUMBER DATA TABLES: allows us to pass collections and more under a step.
+- We can pass:
+           - List<String>
+           - int
+           - Maps
+           - List of Maps
+           - Map of Maps
+- We will accept the data inside of pipes ||, and determine how do we
+want to accept that table in the step definitions as an argument.
+        - If it makes sense, we will accept it as a List<String>
+        - If it makes sense, we will accept it as a Map<String, String>
+ex:
+Scenario: List of fruits and vegetables I like
+Then user should see below list
+| orange |
+| apple |
+| kiwi |
+| strawberry |
+| tomato |
+| pear |
+| eggplant |
+
+SYNTAX --> inside step definitions class:
+@Then("user should see below list")
+public void user_should_see_below_list(List<String>
+fruitsAndVegetables) {
+System.out.println("fruitsAndVegetables = " +
+fruitsAndVegetables);
+System.out.println(fruitsAndVegetables.get(1));
+}
+
+#8- SCENARIO OUTLINES / SCENARIO TEMPLATES
+- Scenario Outlines we can create a table for the whole scenario
+- This table will contain different data sets for different scenario
+executions
+- Scenario Outlines truly allows us to do DDT using BDD.
+- However many lines we have under "Examples" table, will determine
+the amount of time that our test will be executed.
+- To be able to implement Scenario outline, we have to use "Scenario
+Outline" keyword instead of "Scenario"
+- Once we use "Scenario Outline" keyword, we have to provide an "Examples:" table
+
+  SCENARIO OUTLINES: Wikipedia Search Functionality with Scenario Outline
+Given User is on Wikipedia home page
+When User types "<searchValue>" in the wiki search box
+And User clicks wiki search button
+Then User sees "<expectedTitle>" is in the wiki title
+Then User sees "<expectedMainHeader>" is in the main header
+Then User sees "<expectedImageHeader>" is in the image header
+
+@ceos
+Examples: search values we are going to be using in this scenario
+outlines
+| searchValue | expectedTitle | expectedMainHeader |
+expectedImageHeader |
+| Steve Jobs | Steve Jobs | Steve Jobs | Steve
+Jobs |
+| Marry Barra | Marry Barra | Marry Barra | Marry
+Barra |
+| Rosalind Brewer | Rosalind Brewer | Rosalind Brewer |
+Rosalind Brewer |
+| Sundar Pichai | Sundar Pichai | Sundar Pichai |
+Sundar Pichai |
+
+#9-TAKE SCREEN SHOT:
+      - We use a method that is coming from TakesScreenShot interface coming from Selenium Library.
+      - Since we are using WebDriver/ChromeDriver object, to be able to use the methods that are coming from TakesScreenShot interface, we have to
+cast our object type to TakesScreenShot.
+      - After that we will be able to use the method named ".getScreenshotAs()"
+      - We also have a class called Scenario, coming from cucumber.io
+library.
+      - This Scenario class' object is keeping track of some of time simple
+data about the scenario that is currently being executed, such as;
+               - If scenario failed or passed
+               - Current scenario name
+- We can also attach screenshot using this object as well.
+
+SYNTAX:
+      if (scenario.isFailed()) {
+            byte[] screenshot = (TakesScreenshotDriver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
+      }
+
+1- if (scenario.isFailed()) --> If scenario fails, this line will return "true"
+2- byte[] screenshot = --> We are creating an array of bytes to be able to store our screenshot
+3- ((TakesScreenshot) Driver.getDriver()) --> We are casting our ChromeDriver type to            TakesScreenshot
+4- getScreenshotAs(OutputType.BYTES); --> We are returning the screenshot as BYTES so we can use  it.
+5- scenario.attach(arg1, arg2, arg3) --> This method is able to attach the provided SS to our report.
+     - It accepts 3 arguments:
+              #1- arg1 --> screenshot as array of bytes
+              #2- arg2 --> image type --> "image/png"
+              #3- arg3 --> String scenarioName --> scenario.getName()
+
+#10- PARALLEL TESTING:
+    It is able to execute scenarios/tests in parallel to each other
+
+
+#11- REPORT GENERATION
+   MAVEN CUCUMBER REPORTING:
+   This is not just another type of report
+   It is just one of available reports for our cucumber project
+
+   MAVEN CUCUMBER REPORTING: is an extra tool to create different report in Cucumber project. It has a bit more options compared to 'html' report that we are generating cucumber
+
+      To implement: add dependency in pom.xml, and add plugin the runner class.
+               plugin { "me.jvt.cucumber.report.PrettyReports:target/cucumber" }
+
+   WHY DO WE NEED CUCUMBER RERUN PLUGIN:
+
+   CUCUMBER RERUN PLUGIN: allow to keep track of  FAILED scenarios/tests
+   store them inside of the .txt file that it create under 'target' folder
+                                      "rerun:target/rerun.txt"
+
+   Cucumber rerun is a plugin that allow us to run only the failed tests/scenarios
+   The benefit of Cucumber Rerun is to save some time
+   We create another runner class 'FailedTestRunner' and  to rerun only Failed scenarios/tests
+
+#12-WHAT IS MAVEN CUCUBER REPORTING?
+
+
+
+   WHAT IS A MAVEN LIFE CYCLE: is a sequence of phases/steps.
+   There are three built-in build lifecycles: default, clean and site.
+    The 'default' lifecycle handles your project deployment.(validate, compile, test, package, verify, install, deploy)
+    The 'clean' lifecycle handles project cleaning.
+    The 'site' lifecycle handles the creation of your project's web site.
+
+   Lifecycles consists of phases.
+   Phases are each steps to execute lifecycles.
+
+   WHAT IS A DEPENDENCY?: is bunch of ready jar files like java classes. it is ready to add in pom.xml file and use.
+   Dependencies is not involved in MAVEN LIFECYCLE
+
+   WHAT IS A PLUGIN? is jar files that is similar to dependencies.
+   Plugin is involved in MAVEN LIFECYCLE
+
+
