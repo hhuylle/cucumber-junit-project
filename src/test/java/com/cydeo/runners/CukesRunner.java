@@ -13,10 +13,10 @@ import org.junit.runner.RunWith;
                 "rerun:target/rerun.txt",
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber"
         },
-        features = "src/test/resources/features",
-        glue = "com/cydeo/step_definitions", //
+        features = "src/test/resources/features", // to path to feature file
+        glue = "com/cydeo/step_definitions", // to path to step definitions
         dryRun = false, // generating snippet, if turn on like true it will not execute the actual code, otherwise it will execute. Glue is taking path of step definitions
-        tags = "@vytrackDashboard", // creating different scenarios suite which ones run or not
+        tags = "", // creating different scenarios suite which ones run or not
         publish = true // generating a report with public link
 )
 public class CukesRunner {} // to run the tests, and generate codes for step definitions

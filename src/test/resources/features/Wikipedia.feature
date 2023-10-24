@@ -34,11 +34,11 @@ Feature: Wikipedia search feature
 
     @ceos
     Examples: search values we are going to be using in this scenario outlines
-      | searchValue     | expectedTitle   | expectedMainHeader | expectedImageHeader |
-      | Steve Jobs      | Steve Jobs      | Steve Jobs         | Steve Jobs          |
-      | Donald Trump    | Donald Trump    | Donald Trump       | Donald Trump        |
-      | Rosalind Brewer | Rosalind Brewer | Rosalind Brewer    | Rosalind Brewer     |
-      | Sundar Pichai   | Sundar Pichai   | Sundar Pichai      | Sundar Pichai       |
+      | searchValue   | expectedTitle | expectedMainHeader | expectedImageHeader |
+      | Steve Jobs    | Steve Jobs    | Steve Jobs         | Steve Jobs          |
+      | Donald Trump  | Donald Trump  | Donald Trump       | Donald Trump        |
+      | Keanu Reeves  | Keanu Reeves  | Keanu Reeves       | Keanu Reeves        |
+      | Sundar Pichai | Sundar Pichai | Sundar Pichai      | Sundar Pichai       |
 
     @scientists
     Examples:

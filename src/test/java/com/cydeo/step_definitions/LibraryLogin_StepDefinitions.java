@@ -105,7 +105,7 @@ public class LibraryLogin_StepDefinitions {
 
 
     @And("I click on {string} link")
-    public void iClickOnLink(String arg0) {
+    public void iClickOnLink() {
 
         loginDashboardPage.users.click();
     }

@@ -1,6 +1,6 @@
 package com.cydeo.step_definitions;
 
-// In this class we will be able to create "pre" and "post" condition for ALL the scenarios and eve steps
+// In this class we will be able to create "pre" and "post" condition for ALL the scenarios and even steps
 
 import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;

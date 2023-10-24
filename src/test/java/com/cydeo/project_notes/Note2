@@ -180,8 +180,8 @@ step!");
 
 
 #6- PARAMETERIZATION : CUCUMBER EXPRESSIONS
-- Cucumber Expressions (Parameterization) is being able to pass and change
- test data from the feature files.
+- Cucumber Expressions (Parameterization) is being able to pass and
+change test data from the feature files.
 - Using Cucumber Expressions, we can pass String, int, float, {word},
    and even create our own object types to be able to pass from the
 feature file as test data.
